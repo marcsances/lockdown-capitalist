@@ -1,0 +1,28 @@
+<h1>Day {{game.day}}</h1>
+<p>Budget: {{game.economy.budget.currentValue | number:'.0-2'}} $</p>
+<p>GDP: {{game.economy.gdp.currentValue | number:'.0-2'}} $</p>
+<p>Infected people: {{game.health.infections.currentValue | number:'.0-0'}}</p>
+<p>Treated infections: {{game.health.infections.attended | number:'.0-0'}}</p>
+<p>Untreated infections: {{game.health.infections.unattended | number:'.0-0'}}</p>
+<p>Infections last day: {{game.health.infections.dailyIncrease | number:'.0-0'}}</p>
+<p>Small hospitals: {{game.health.hospitals.hospitals[0] | number:'.0-0'}}</p>
+<p>Medium hospitals: {{game.health.hospitals.hospitals[1] | number:'.0-0'}}</p>
+<p>Large hospitals: {{game.health.hospitals.hospitals[2] | number:'.0-0'}}</p>
+<p>Hospital capacity: {{game.health.hospitals.getCapacity() | number:'.0-0'}}</p>
+<p>Current population: {{game.demographics.population.currentValue | number:'.0-0'}}</p>
+<p>Total exitus: {{game.demographics.exitus.currentValue | number:'.0-0'}}</p>
+<p>Exitus last day: {{game.demographics.exitus.dailyIncrease | number:'.0-0'}}</p>
+<p>Lockdown status: {{game.lockdownStatusStr}}</p>
+<p>Reproduction rate: {{game.health.infections.exponentialGrowth | number}}</p>
+<div *ngIf="!game.gameover">
+<button mat-button (click)="iterate()">Iterate</button>
+<button mat-button (click)="game.buildHospital(0)">Build a small hospital (cost ${{smallCost | number}}M)</button>
+<button mat-button (click)="game.buildHospital(1)">Build a medium sized hospital (cost ${{mediumCost | number}}M)</button>
+<button mat-button (click)="game.buildHospital(2)">Build a large hospital (cost ${{largeCost | number}}M)</button>
+<button mat-button (click)="game.fullLockdown()">Enter full lockdown</button>
+<button mat-button (click)="game.halfLockdown()">Enter half lockdown</button>
+<button mat-button (click)="game.noLockdown()">Remove lockdown</button>
+</div>
+<div *ngIf="game.gameover">
+  <button mat-button (click)="newGame()">New game</button>
+</div>
