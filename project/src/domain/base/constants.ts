@@ -2,12 +2,10 @@ export class Constants {
   initialGdp: number = 30000000;
   initialBudget: number = 0;
   gdpToBudget: number = 0.1;
-  dailyMaxGdp: number = 100000;
+  dailyMaxGdp: number = 1000000;
   hospitalCosts: number[] = [10000, 20000, 40000];
   hospitalCapacity: number[] = [180, 400, 900];
-  hospitalICU: number[] = [1, 10, 20];
   initialHospitals: number[] = [3, 2, 1];
-  dailyCritical: number = 0.1;
   initialInfectionRate: number = 0.5;
   fullLockdownR: number = 0.945;
   partialLockdownR: number = 0.965;

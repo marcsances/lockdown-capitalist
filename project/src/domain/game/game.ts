@@ -4,6 +4,7 @@ import {Demographics} from "../demographics/demographics";
 import {Lockdown} from "../lockdown/lockdown";
 import {LockdownEffectiveness} from "../lockdown/lockdownefectiveness";
 import {Constants} from "../base/constants";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 export class Game {
   economy: Economy;
@@ -16,7 +17,7 @@ export class Game {
   lockdownEffectiveness: LockdownEffectiveness;
   constants: Constants;
 
-  constructor(constants: Constants) {
+  constructor(constants: Constants, private _snackBar: MatSnackBar) {
     this.constants = constants;
     this.economy = new Economy(this.constants);
     this.health = new Health(this.constants);
@@ -130,7 +131,7 @@ export class Game {
   }
 
   showToast(message) {
-
+    this._snackBar.open(message, "Ok", {duration: 2000});
   }
 
   iterate(): void {

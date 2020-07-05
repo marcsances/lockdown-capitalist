@@ -1,4 +1,160 @@
-<div style="display: flex; flex-direction: column; height: 100vh">
+<div *ngIf="!ingame" style="display: flex; flex-direction: column; height: 100vh">
+  <h1>Configure your game</h1>
+  <p>No idea on what to do?
+    <button (click)="startGame()" color="primary" mat-raised-button>Just play</button>
+  </p>
+  <form action="#" style="display: flex; flex-direction: column">
+    <b>Demographics</b>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Initial population</mat-label>
+        <input [(ngModel)]="constants.initialPopulation" matInput name="initialPopulation">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Initial number of infections</mat-label>
+        <input [(ngModel)]="constants.initialInfections" matInput name="initialInfections">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>% of infections requiring hospital</mat-label>
+        <input [(ngModel)]="constants.hospitalRate" matInput name="hospitalRate">
+      </mat-form-field>
+    </div>
+    <b>Economics</b>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Initial GDP:</mat-label>
+        <input [(ngModel)]="constants.initialGdp" matInput name="initialGdp">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Initial budget for buying hospitals:</mat-label>
+        <input [(ngModel)]="constants.initialBudget" matInput name="initialBudget">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>% of daily GDP going to budget:</mat-label>
+        <input [(ngModel)]="constants.gdpToBudget" matInput name="gdpToBudget">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Daily GDP earnings:</mat-label>
+        <input [(ngModel)]="constants.dailyMaxGdp" matInput name="dailyMaxGdp">
+      </mat-form-field>
+    </div>
+    <b>Hospitals</b>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Small hospital cost</mat-label>
+        <input [(ngModel)]="constants.hospitalCosts[0]" matInput name="smallCosts">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Medium hospital cost</mat-label>
+        <input [(ngModel)]="constants.hospitalCosts[1]" matInput name="mediumCosts">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Large hospital cost</mat-label>
+        <input [(ngModel)]="constants.hospitalCosts[2]" matInput name="largeCosts">
+      </mat-form-field>
+    </div>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Small hospital capacity</mat-label>
+        <input [(ngModel)]="constants.hospitalCapacity[0]" matInput name="smallCapacity">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Medium hospital cost</mat-label>
+        <input [(ngModel)]="constants.hospitalCapacity[1]" matInput name="mediumCapacity">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Large hospital cost</mat-label>
+        <input [(ngModel)]="constants.hospitalCapacity[2]" matInput name="largeCapacity">
+      </mat-form-field>
+    </div>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Small hospitals available</mat-label>
+        <input [(ngModel)]="constants.initialHospitals[0]" matInput name="smallHospitals">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Medium hospitals available</mat-label>
+        <input [(ngModel)]="constants.initialHospitals[1]" matInput name="mediumHospitals">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Large hospitals available</mat-label>
+        <input [(ngModel)]="constants.initialHospitals[2]" matInput name="largeHospitals">
+      </mat-form-field>
+    </div>
+    <b>Infection rate</b>
+    <mat-form-field>
+      <mat-label>Initial infection rate (relative)</mat-label>
+      <input [(ngModel)]="constants.initialInfectionRate" matInput name="infectionRate">
+    </mat-form-field>
+    <b>Lockdown effects</b>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Full lockdown effect over infection rate (0-1)</mat-label>
+        <input [(ngModel)]="constants.fullLockdownR" matInput name="fullLockdownR">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Half lockdown effect over infection rate (0-1)</mat-label>
+        <input [(ngModel)]="constants.partialLockdownR" matInput name="partialLockdownR">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>No lockdown effect over infection rate (1+)</mat-label>
+        <input [(ngModel)]="constants.noLockdownR" matInput name="noLockdownR">
+      </mat-form-field>
+    </div>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Full lockdown reduction of daily GDP (usually negative)</mat-label>
+        <input [(ngModel)]="constants.fullLockdownGDP" matInput name="fullLockdownGDP">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Partial lockdown reduction of daily GDP (usually low)</mat-label>
+        <input [(ngModel)]="constants.partialLockdownGDP" matInput name="partialLockdownGDP">
+      </mat-form-field>
+    </div>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Full lockdown reduction of effectiveness (<0)</mat-label>
+        <input [(ngModel)]="constants.fullLockdownEffectiveness" matInput name="fullLockdownEffectiveness">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Partial lockdown reduction of effectiveness (<0)</mat-label>
+        <input [(ngModel)]="constants.partialLockdownEffectiveness" matInput name="partialLockdownEffectiveness">
+      </mat-form-field>
+    </div>
+    <b>Patient discharge</b>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Mild patients release day</mat-label>
+        <input [(ngModel)]="constants.mildReleaseDay" matInput name="mildReleaseDay">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Hospitalised patients release day</mat-label>
+        <input [(ngModel)]="constants.treatedReleaseDay" matInput name="treatedReleaseDay">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Untreated patients release day</mat-label>
+        <input [(ngModel)]="constants.untreatedReleaseDay" matInput name="untreatedReleaseDay">
+      </mat-form-field>
+    </div>
+    <b>Fatality rates</b>
+    <div style="display: flex; flex-direction: row; width: 100vw">
+      <mat-form-field>
+        <mat-label>Hospitalised patients fatality rate</mat-label>
+        <input [(ngModel)]="constants.treatedFatalityRate" matInput name="treatedFatalityRate">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Untreated patients fatality rate</mat-label>
+        <input [(ngModel)]="constants.untreatedFatalityRate" matInput name="untreatedFatalityRate">
+      </mat-form-field>
+    </div>
+  </form>
+  <div style="display: flex; flex-direction: row">
+
+    <button (click)="startGame()" color="primary" mat-raised-button>Start game</button>
+    <button (click)="resetConstants()" color="warn" mat-raised-button>Reset to defaults</button>
+  </div>
+</div>
+<div *ngIf="ingame" style="display: flex; flex-direction: column; height: 100vh">
   <h1>Day {{game.day}}</h1>
   <h2>Economic metrics</h2>
   <table>
@@ -18,7 +174,7 @@
     </tbody>
 </table>
 <h2>Infection metrics</h2>
-  <div style="display: flex; flex-direction: row">
+  <div style="display: flex; flex-direction: row; width: 100vw">
     <canvas [chartType]="lineChartType" [colors]="lineChartColors" [datasets]="lineChartData"
             [labels]="lineChartLabels"
             [legend]="lineChartLegend"
@@ -81,16 +237,20 @@
         <td>{{game.demographics.population.dailyIncrease | number:'.0-0'}}</td>
         <td>{{game.demographics.population.dailyIncrease / game.demographics.exitus.currentValue * 100 | number:'.0-2'}}</td>
       </tr>
+      <tr>
+        <td>Hospital capacity</td>
+        <td>{{game.health.hospitals.getCapacity()|number:'.0-0'}}</td>
+      </tr>
       </tbody>
     </table>
   </div>
 <h2>Lockdown</h2>
 <p>Lockdown status: {{game.lockdownStatusStr}}</p>
   <div *ngIf="!game.gameover" style="display: flex; flex-direction: column">
-    <div style="display: flex; flex-direction: row">
+    <div style="display: flex; flex-direction: row; width: 100vw">
       <button (click)="iterate()" color="warn" mat-raised-button>Iterate to next day</button>
     </div>
-    <div style="display: flex; flex-direction: row">
+    <div style="display: flex; flex-direction: row; width: 100vw">
       <button (click)="game.buildHospital(0)" color="primary" mat-raised-button style="flex: 1 1 33%">Build a small
         hospital (cost ${{smallCost | number}}, capacity {{smallCap}}, you
         have {{game.health.hospitals.hospitals[0] | number:'.0-0'}})
@@ -103,7 +263,7 @@
         hospital (cost ${{largeCost | number}}, capacity {{largeCap}}), you
         have {{game.health.hospitals.hospitals[2] | number:'.0-0'}}</button>
     </div>
-    <div style="display: flex; flex-direction: row">
+    <div style="display: flex; flex-direction: row; width: 100vw">
       <button (click)="game.fullLockdown()" color="warn" mat-raised-button style="flex: 1 1 33%">Enter full lockdown
       </button>
       <button (click)="game.halfLockdown()" color="accent" mat-raised-button style="flex: 1 1 33%">Enter half lockdown

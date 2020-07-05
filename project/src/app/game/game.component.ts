@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
 import {Game} from "../../domain/game/game";
 import {Color, Label} from "ng2-charts";
 import {ChartDataSets} from "chart.js";
 import {Constants} from "../../domain/base/constants";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'game',
@@ -51,7 +51,6 @@ export class GameComponent implements OnInit {
   public lineChartType2 = 'line';
   public lineChartPlugins2 = [];
 
-  router: Router;
   game: Game;
   constants: Constants;
   smallCost: number;
@@ -62,15 +61,25 @@ export class GameComponent implements OnInit {
   largeCap: number;
   totalInfections: number;
   totalDeceased: number;
+  ingame: boolean = false;
 
-  constructor(router: Router) {
-    this.router = router;
-
+  constructor(private _snackbar: MatSnackBar) {
+    this.constants = new Constants();
   }
 
   ngOnInit() {
-    this.newGame();
+
+
+  }
+
+  startGame() {
+    this.newGame(this.constants);
     this.updateChart();
+    this.ingame = true;
+  }
+
+  resetConstants() {
+    this.constants = new Constants();
   }
 
   updateChart() {
@@ -96,9 +105,8 @@ export class GameComponent implements OnInit {
     }
   }
 
-  newGame() {
-    this.constants = new Constants();
-    this.game = new Game(this.constants);
+  newGame(constants: Constants) {
+    this.game = new Game(this.constants, this._snackbar);
     this.smallCost = this.constants.hospitalCosts[0];
     this.mediumCost = this.constants.hospitalCosts[1];
     this.largeCost = this.constants.hospitalCosts[2];
