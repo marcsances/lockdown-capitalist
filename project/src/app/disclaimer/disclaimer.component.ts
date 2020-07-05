@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 })
 export class DisclaimerComponent {
   router: Router;
-  version = "0.1.0";
+  version = "0.2.0";
 
   constructor(router: Router) {
     this.router = router;

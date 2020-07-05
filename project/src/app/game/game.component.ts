@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {Game} from "../../domain/game/game";
-import {hospitalCosts} from "../../domain/base/constants";
+import {hospitalCapacity, hospitalCosts} from "../../domain/base/constants";
 
 @Component({
   selector: 'game',
@@ -14,6 +14,9 @@ export class GameComponent {
   smallCost: number;
   mediumCost: number;
   largeCost: number;
+  smallCap: number;
+  mediumCap: number;
+  largeCap: number;
 
   constructor(router: Router) {
     this.router = router;
@@ -21,6 +24,9 @@ export class GameComponent {
     this.smallCost = hospitalCosts[0];
     this.mediumCost = hospitalCosts[1];
     this.largeCost = hospitalCosts[2];
+    this.smallCap = hospitalCapacity[0];
+    this.mediumCap = hospitalCapacity[1];
+    this.largeCap = hospitalCapacity[2];
   }
 
   iterate() {

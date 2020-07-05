@@ -8,7 +8,7 @@ export class Demographics {
   population: Population;
 
   constructor(health: Health) {
-    this.exitus = new Exitus(health.infections);
+    this.exitus = new Exitus();
     this.population = new Population(initialPopulation, 0.0, 0.0, this.exitus);
   }
 }

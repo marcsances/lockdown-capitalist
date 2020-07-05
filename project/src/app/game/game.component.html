@@ -1,24 +1,74 @@
 <h1>Day {{game.day}}</h1>
-<p>Budget: {{game.economy.budget.currentValue | number:'.0-2'}} $</p>
-<p>GDP: {{game.economy.gdp.currentValue | number:'.0-2'}} $</p>
-<p>Infected people: {{game.health.infections.currentValue | number:'.0-0'}}</p>
-<p>Treated infections: {{game.health.infections.attended | number:'.0-0'}}</p>
-<p>Untreated infections: {{game.health.infections.unattended | number:'.0-0'}}</p>
-<p>Infections last day: {{game.health.infections.dailyIncrease | number:'.0-0'}}</p>
-<p>Small hospitals: {{game.health.hospitals.hospitals[0] | number:'.0-0'}}</p>
-<p>Medium hospitals: {{game.health.hospitals.hospitals[1] | number:'.0-0'}}</p>
-<p>Large hospitals: {{game.health.hospitals.hospitals[2] | number:'.0-0'}}</p>
-<p>Hospital capacity: {{game.health.hospitals.getCapacity() | number:'.0-0'}}</p>
-<p>Current population: {{game.demographics.population.currentValue | number:'.0-0'}}</p>
-<p>Total exitus: {{game.demographics.exitus.currentValue | number:'.0-0'}}</p>
-<p>Exitus last day: {{game.demographics.exitus.dailyIncrease | number:'.0-0'}}</p>
+<h2>Economic metrics</h2>
+<table>
+  <thead>
+    <th>Budget</th>
+    <th>Last day budget increase</th>
+    <th>GDP</th>
+    <th>Last day GDP increase</th>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{game.economy.budget.currentValue | number:'.0-2'}} $</td>
+    <td>{{game.economy.budget.dailyIncrease | number:'.0-2'}} $</td>
+    <td>{{game.economy.gdp.currentValue | number:'.0-2'}} $</td>
+    <td>{{game.economy.gdp.dailyIncrease | number:'.0-2'}} $</td>
+  </tr>
+  </tbody>
+</table>
+<h2>Infection metrics</h2>
+<table>
+  <thead>
+    <th>Active casses</th>
+    <th>Daily new cases</th>
+    <th>% daily new cases</th>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{game.health.infections.currentValue | number:'.0-0'}}</td>
+    <td>{{game.health.infections.dailyIncrease | number:'.0-0'}}</td>
+    <td>{{game.health.infections.rate | number}} %</td>
+  </tr>
+</table>
+<h2>Hospital information</h2>
+<table>
+  <thead>
+    <th>Hospital capacity</th>
+    <th>Patients requiring hospital admission</th>
+    <th>Treated in hospital</th>
+    <th>Patients rejected</th>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{game.health.hospitals.getCapacity() | number:'.0-0'}}</td>
+    <td>{{game.health.patients.currentValue | number:'.0-0'}}</td>
+    <td>{{game.health.patients.attended | number:'.0-0'}}</td>
+    <td>{{game.health.patients.unattended | number:'.0-0'}}</td>
+  </tr>
+  </tbody>
+</table>
+<h2>Demographics</h2>
+<table>
+  <thead>
+  <th>Current population</th>
+  <th>Total deceased</th>
+  <th>Deceased last day</th>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{game.demographics.population.currentValue | number:'.0-0'}}</td>
+    <td>{{game.demographics.exitus.currentValue | number:'.0-0'}}</td>
+    <td>{{game.demographics.exitus.dailyIncrease | number:'.0-0'}}</td>
+  </tr>
+  </tbody>
+</table>
+<h2>Lockdown</h2>
 <p>Lockdown status: {{game.lockdownStatusStr}}</p>
-<p>Reproduction rate: {{game.health.infections.exponentialGrowth | number}}</p>
 <div *ngIf="!game.gameover">
 <button mat-button (click)="iterate()">Iterate</button>
-<button mat-button (click)="game.buildHospital(0)">Build a small hospital (cost ${{smallCost | number}}M)</button>
-<button mat-button (click)="game.buildHospital(1)">Build a medium sized hospital (cost ${{mediumCost | number}}M)</button>
-<button mat-button (click)="game.buildHospital(2)">Build a large hospital (cost ${{largeCost | number}}M)</button>
+<button mat-button (click)="game.buildHospital(0)">Build a small hospital (cost ${{smallCost | number}}, capacity {{smallCap}}, you have {{game.health.hospitals.hospitals[0] | number:'.0-0'}})</button>
+<button mat-button (click)="game.buildHospital(1)">Build a medium sized hospital (cost ${{mediumCost | number}}, capacity {{mediumCap}}, you have {{game.health.hospitals.hospitals[1] | number:'.0-0'}})</button>
+<button mat-button (click)="game.buildHospital(2)">Build a large hospital (cost ${{largeCost | number}}, capacity {{largeCap}}), you have {{game.health.hospitals.hospitals[2] | number:'.0-0'}}</button>
 <button mat-button (click)="game.fullLockdown()">Enter full lockdown</button>
 <button mat-button (click)="game.halfLockdown()">Enter half lockdown</button>
 <button mat-button (click)="game.noLockdown()">Remove lockdown</button>

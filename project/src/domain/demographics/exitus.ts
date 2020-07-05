@@ -1,12 +1,10 @@
 import {Variable} from "../base/variable";
-import {Infections} from "../health/infections";
-import {dailyTreatedFatalityRate, dailyUntreatedFatailtyRate} from "../base/constants";
+import {Patients} from "../health/patients";
+import {treatedFatalityRate, untreatedFatalityRate} from "../base/constants";
 
 export class Exitus extends Variable {
-  infections: Infections;
 
-  constructor(infections: Infections) {
+  constructor() {
     super(0, 0, 0, true);
-    this.infections = infections;
   }
 }

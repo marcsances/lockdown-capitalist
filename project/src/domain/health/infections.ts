@@ -1,16 +1,11 @@
 import {Variable} from "../base/variable";
-import {Hospitals} from "./hospitals";
 
 export class Infections extends Variable {
-    attended: number = 0;
-    unattended: number = 0;
-    hospitals: Hospitals;
+  rate: number;
 
-    constructor(initialValue: number, initialExponentialGrowth: number, initialLinearGrow: number, hospitals: Hospitals) {
-      super(initialValue, initialExponentialGrowth, initialLinearGrow, true);
-      this.hospitals = hospitals;
-      this.attended = initialValue;
-      this.unattended = 0;
-      this.attended = this.currentValue;
-    }
+  iterate() {
+    let last = this.currentValue;
+    super.iterate();
+    this.rate = this.dailyIncrease / last * 100;
+  }
 }
