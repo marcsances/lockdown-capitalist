@@ -36,7 +36,10 @@ export class Releases {
   }
 
   updateReleasesForDay(day: number, expectedReleases: number, ofWhichDeceased: number) {
-    this.releases[day] = [this.maybe(this.releases[day],0) + expectedReleases,
-      this.maybe(this.releases[day],1) + (expectedReleases * ofWhichDeceased)];
+    if (expectedReleases < 0 || ofWhichDeceased < 0) {
+      return;
+    }
+    this.releases[day] = [this.maybe(this.releases[day], 0) + expectedReleases,
+      this.maybe(this.releases[day], 1) + (expectedReleases * ofWhichDeceased)];
   }
 }

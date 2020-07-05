@@ -1,6 +1,6 @@
 {
-  "name": "project",
-  "version": "0.0.0",
+  "name": "Lockdown Capitalist",
+  "version": "0.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~10.0.2",
     "@angular/platform-browser-dynamic": "~10.0.2",
     "@angular/router": "~10.0.2",
+    "chart.js": "^2.9.3",
+    "ng2-charts": "^2.3.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
